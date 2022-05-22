@@ -27,7 +27,7 @@ class PostCreateFormTest(TestCase):
         self.authorized_user.force_login(self.user)
 
     def test_create_post_forms(self):
-        """Проверка формы создания поста."""
+        """Проверка формы создания поста"""
         post_count = Post.objects.count()
         form_data = {
             'text': 'Тестовый текст',
@@ -47,7 +47,7 @@ class PostCreateFormTest(TestCase):
         ).exists())
 
     def test_edit_post_forms(self):
-        """Проверка формы редактирования поста."""
+        """Проверка формы редактирования поста"""
         post_count = Post.objects.count()
         form_data = {
             'text': 'Тестовый пост',

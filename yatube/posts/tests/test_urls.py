@@ -34,7 +34,7 @@ class StaticURLTests(TestCase):
         self.scnd_client.force_login(self.scnd_user)
 
     def test_pages_all_users(self):
-        """Страницы posts доступные неавторизованным пользователям."""
+        """Страницы posts доступные неавторизованным пользователям"""
         url_list = {
             '/': 'Главная страница',
             '/group/test-slug/': 'Страница групп',
@@ -53,7 +53,7 @@ class StaticURLTests(TestCase):
                 self.assertEqual(response.status_code, 404)
 
     def test_pages_authorized_users(self):
-        """Страницы posts доступные авторизованным пользователям."""
+        """Страницы posts доступные авторизованным пользователям"""
         url_list = {
             '/': 'Главная страница',
             '/group/test-slug/': 'Страница групп',
@@ -72,14 +72,14 @@ class StaticURLTests(TestCase):
                 self.assertEqual(response.status_code, 404)
 
     def test_post_edit_author_only(self):
-        """Страница редактирования поста только для его автора."""
+        """Страница редактирования поста только для его автора"""
         response = self.scnd_client.get('/posts/2/edit/')
         self.assertEqual(response.status_code, 200)
         response = self.scnd_client.get('/unexpected-page/')
         self.assertEqual(response.status_code, 404)
 
     def test_urls_uses_correct_templates(self):
-        """Страницы posts соответствуют шаблонам."""
+        """Страницы posts соответствуют шаблонам"""
         templates_urls = {
             'posts/index.html': '/',
             'posts/group_list.html': '/group/test-slug/',
