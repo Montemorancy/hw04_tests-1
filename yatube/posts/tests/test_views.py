@@ -47,7 +47,8 @@ class PostPagesTest(TestCase):
 
     def test_posts_pages_uses_correct_template_all_users(self):
         """Проверка использования posts view 
-        ожидаемых шаблонов неавторизованным пользователем."""
+        ожидаемых шаблонов неавторизованным пользователем.
+        """
         template_pages = {
             'posts/index.html': reverse('posts:index'),
             'posts/group_list.html': 
@@ -63,7 +64,9 @@ class PostPagesTest(TestCase):
                 self.assertTemplateUsed(response, template)
 
     def test_posts_pages_uses_correct_template_authorized(self):
-        """Проверка использования posts view ожидаемых шаблонов авторизованным пользователем и автором."""
+        """Проверка использования posts view ожидаемых 
+        шаблонов авторизованным пользователем и автором.
+        """
         template_pages = {
             'posts/create_post.html': reverse('posts:post_create'),
             'posts/create_post.html': 
