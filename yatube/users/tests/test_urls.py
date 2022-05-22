@@ -16,8 +16,7 @@ class UsersURLTest(TestCase):
         self.authorized_client.force_login(self.user)
 
     def test_users_pages_all_users(self):
-        """Страницы users доступные неавторизованным пользователям
-        """
+        """Страницы users доступные неавторизованным пользователям."""
         url_list = {
             '/auth/signup/': 'Страница регистрации',
             '/auth/login/': 'Страница входа на сайт',
@@ -33,8 +32,7 @@ class UsersURLTest(TestCase):
                 self.assertEqual(response.status_code, 200)
 
     def test_users_pages_authorized(self):
-        """Страницы users доступные авторизованным пользователям
-        """
+        """Страницы users доступные авторизованным пользователям."""
         url_list = {
             '/auth/password_change/': 'Смена пароля',
             '/auth/password_change/done/': 'Подтверждение смены пароля',
@@ -45,8 +43,7 @@ class UsersURLTest(TestCase):
                 self.assertEqual(response.status_code, 200)
 
     def test_users_pages_uses_correct_templates_all(self):
-        """Страницы users соответствуют шаблонам
-        """
+        """Страницы users соответствуют шаблонам."""
         template_url = {
             '/auth/signup/': 'users/signup.html',
             '/auth/login/': 'users/login.html',
@@ -63,8 +60,7 @@ class UsersURLTest(TestCase):
                 self.assertTemplateUsed(response, template)
 
     def test_users_pages_uses_correct_templates_authorized(self):
-        """Страницы авторизованных users соответствуют шаблонам
-        """
+        """Страницы авторизованных users соответствуют шаблонам."""
         template_url = {
             '/auth/password_change/': 'users/password_change_form.html',
             '/auth/password_change/done/': 'users/password_change_done.html',

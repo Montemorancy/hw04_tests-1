@@ -13,13 +13,11 @@ class PostCreateFormTest(TestCase):
         cls.group = Group.objects.create(
             title='Тест группа',
             slug='test_slug',
-            description='Описание',
-        )
+            description='Описание',)
         cls.post = Post.objects.create(
             author=cls.user,
             text='Тестовый текст',
-            pk='1',
-        )
+            pk='1',)
         cls.form = PostForm()
 
     def setUp(self):
@@ -27,9 +25,7 @@ class PostCreateFormTest(TestCase):
         self.authorized_user.force_login(self.user)
 
     def test_create_post_forms(self):
-        """Проверка формы создания поста
-        
-        """
+        """Проверка формы создания поста."""
         post_count = Post.objects.count()
         form_data = {
             'text': 'Тестовый текст',
@@ -49,9 +45,7 @@ class PostCreateFormTest(TestCase):
         ).exists())
 
     def test_edit_post_forms(self):
-        """Проверка формы редактирования поста
-        
-        """
+        """Проверка формы редактирования поста."""
         post_count = Post.objects.count()
         form_data = {
             'text': 'Тестовый пост',

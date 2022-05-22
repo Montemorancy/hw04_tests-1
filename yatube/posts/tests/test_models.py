@@ -22,21 +22,17 @@ class PostModelTest(TestCase):
         )
 
     def test_post_have_correct_object_name(self):
-        """Проверка корректной работа __str__ Post
-        
-        """
+        """Проверка корректной работа __str__ Post."""
         task_post = PostModelTest.post
         self.assertEqual(str(task_post), task_post.text)
 
     def test_post_have_correct_object_name(self):
-        """Проверка корректной работа __str__ Group"""                
+        """Проверка корректной работа __str__ Group."""
         task_group = PostModelTest.group
         self.assertEqual(str(task_group), task_group.title)
 
     def test_group_have_verbose_names(self):
-        """проверка имён полей модели Group
-        
-        """
+        """проверка имён полей модели Group."""
         task_group = PostModelTest.group
         verboses_group = {
             'title': 'Название группы',
@@ -49,9 +45,7 @@ class PostModelTest(TestCase):
                     field).verbose_name, expected_value)
 
     def test_post_have_verbose_names(self):
-        """проверка имён полей модели Post
-        
-        """
+        """проверка имён полей модели Post."""
         task_post = PostModelTest.post
         verboses_post = {
             'author': 'Автор',
@@ -63,9 +57,7 @@ class PostModelTest(TestCase):
                     field).verbose_name, expected_value)
 
     def test_group_have_correct_help_text(self):
-        """Проверка наличия описания полей модели Group
-        
-        """
+        """Проверка наличия описания полей модели Group."""
         task_group = PostModelTest.group
         group_help_texts = {
             'title': 'Введите название группы',
@@ -79,9 +71,7 @@ class PostModelTest(TestCase):
                     field).help_text, expected_value)
 
     def test_post_have_correct_help_text(self):
-        """Проверка наличия описания полей модели Post
-        
-        """
+        """Проверка наличия описания полей модели Post."""
         task_post = PostModelTest.post
         post_help_texts = {
             'text': 'Введите текст поста',

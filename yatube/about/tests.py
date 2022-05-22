@@ -15,8 +15,7 @@ class StaticURLTests(TestCase):
         self.authorized_client.force_login(self.user)
 
     def test_about_pages_all_users(self):
-        """Страницы about доступные всем пользователям
-        """
+        """Страницы about доступные всем пользователям."""
         url_list = {
             '/about/author/': 'Страница создателя',
             '/about/tech/': 'Страница стека',
@@ -29,8 +28,7 @@ class StaticURLTests(TestCase):
                 self.assertEqual(response.status_code, 200)
 
     def test_about_urls_uses_correct_templates(self):
-        """Страницы about используют ожидаемые шаблоны
-        """
+        """Страницы about используют ожидаемые шаблоны."""
         template_urls = {
             'about/author.html': '/about/author/',
             'about/tech.html': '/about/tech/',
