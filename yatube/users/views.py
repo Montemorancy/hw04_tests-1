@@ -1,4 +1,3 @@
-from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.views import PasswordChangeView, PasswordResetView
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy

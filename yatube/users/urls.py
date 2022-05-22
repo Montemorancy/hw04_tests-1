@@ -1,5 +1,3 @@
-from re import template
-
 from django.contrib.auth.views import (LoginView, LogoutView,
                                        PasswordChangeView,
                                        PasswordResetCompleteView,

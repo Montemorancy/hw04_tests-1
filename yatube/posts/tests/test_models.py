@@ -25,13 +25,11 @@ class PostModelTest(TestCase):
         """Проверка корректной работа __str__ Post."""
         task_post = PostModelTest.post
         self.assertEqual(str(task_post), task_post.text)
-        
+
     def test_post_have_correct_object_name(self):
         """Проверка корректной работа __str__ Group."""                
         task_group = PostModelTest.group
         self.assertEqual(str(task_group), task_group.title)
-
-
 
     def test_group_have_verbose_names(self):
         """проверка имён полей модели Group."""
@@ -45,7 +43,7 @@ class PostModelTest(TestCase):
             with self.subTest(field=field):
                 self.assertEqual(task_group._meta.get_field(
                     field).verbose_name, expected_value)
-                
+
     def test_post_have_verbose_names(self):
         """проверка имён полей модели Post."""
         task_post = PostModelTest.post
@@ -71,7 +69,7 @@ class PostModelTest(TestCase):
             with self.subTest(field=field):
                 self.assertEqual(task_group._meta.get_field(
                     field).help_text, expected_value)
-    
+
     def test_post_have_correct_help_text(self):
         """Проверка наличия описания полей модели Post."""
         task_post = PostModelTest.post

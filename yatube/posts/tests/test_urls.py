@@ -85,7 +85,6 @@ class StaticURLTests(TestCase):
             'posts/group_list.html': '/group/test-slug/',
             'posts/post_detail.html': '/posts/1/',
             'posts/create_post.html': '/create/',
-            'posts/create_post.html': '/posts/1/edit/',
             'posts/profile.html': '/profile/TestUser/',
         }
         for template, url in templates_urls.items():

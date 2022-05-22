@@ -50,22 +50,24 @@ class PostPagesTest(TestCase):
         ожидаемых шаблонов неавторизованным пользователем."""
         template_pages = {
             'posts/index.html': reverse('posts:index'),
-            'posts/group_list.html': reverse('posts:group_list', kwargs={'slug': 'test_slug'}),
-            'posts/post_detail.html': reverse('posts:post_detail', kwargs={'post_id': '1'}),
-            'posts/profile.html': reverse('posts:profile', kwargs={'username': 'TestUser'}),
+            'posts/group_list.html': 
+                reverse('posts:group_list', kwargs={'slug': 'test_slug'}),
+            'posts/post_detail.html': 
+                reverse('posts:post_detail', kwargs={'post_id': '1'}),
+            'posts/profile.html': 
+                reverse('posts:profile', kwargs={'username': 'TestUser'}),
         }
         for template, reverse_name in template_pages.items():
             with self.subTest(reverse_name=reverse_name):
                 response = self.guest_client.get(reverse_name)
                 self.assertTemplateUsed(response, template)
 
-
     def test_posts_pages_uses_correct_template_authorized(self):
-        """Проверка использования posts view ожидаемых 
-        шаблонов авторизованным пользователем и автором."""
+        """Проверка использования posts view ожидаемых шаблонов авторизованным пользователем и автором."""
         template_pages = {
             'posts/create_post.html': reverse('posts:post_create'),
-            'posts/create_post.html': reverse('posts:post_edit', kwargs={'post_id': '1'}),
+            'posts/create_post.html': 
+                reverse('posts:post_edit', kwargs={'post_id': '1'}),
         }
         for template, reverse_name in template_pages.items():
             with self.subTest(reverse_name=reverse_name):
@@ -146,15 +148,13 @@ class PostPagesTest(TestCase):
         """Проверка работы первой страницы паджинатора главной страницы."""
         response = self.guest_client.get(reverse('posts:index'))
         self.assertEqual(len(response.context['page_obj']), 10)
-        
-        
+
     def test_first_page_contains_ten_records(self):
         """Проверка работы первой страницы паджинатора постов группы."""        
         response = self.guest_client.get(
             reverse('posts:group_list', kwargs={'slug': 'test_slug'}))
         self.assertEqual(len(response.context['page_obj']), 10)
-        
-        
+
     def test_first_page_contains_ten_records(self):
         """Проверка работы первой страницы паджинатора постов автора."""        
         response = self.guest_client.get(
@@ -165,13 +165,13 @@ class PostPagesTest(TestCase):
         """Проверка работы второй страницы паджинатора главной страницы."""
         response = self.client.get(reverse('posts:index') + '?page=2')
         self.assertEqual(len(response.context['page_obj']), 6)
-        
+
     def test_second_page_contains_three_records(self):
         """Проверка работы второй страницы паджинатора постов группы."""
         response = self.client.get(reverse('posts:group_list', kwargs={
                                    'slug': 'test_slug'}) + '?page=2')
         self.assertEqual(len(response.context['page_obj']), 6)
-        
+
     def test_second_page_contains_three_records(self):
         """Проверка работы второй страницы паджинатора постов автора."""
         response = self.client.get(reverse('posts:profile', kwargs={
