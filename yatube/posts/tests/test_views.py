@@ -17,12 +17,12 @@ class PostPagesTest(TestCase):
             title='Тест группа',
             slug='test_slug',
             description='Описание',
-        )
+            )
         cls.scnd_group = Group.objects.create(
             title='Вторая тест группа',
             slug='scnd_test_slug',
             description='Описание второй',
-        )
+            )
         cls.posts = (Post(group=cls.group, author=cls.author,
                           text='Тестовый текст', pk='%s' % i)
                      for i in range(15))
@@ -36,7 +36,7 @@ class PostPagesTest(TestCase):
             author=cls.author,
             text='Тестовый текст',
             group=cls.group,
-        )
+            )
 
     def setUp(self):
         self.guest_client = Client()
@@ -57,7 +57,7 @@ class PostPagesTest(TestCase):
                 reverse('posts:post_detail', kwargs={'post_id': '1'}),
             'posts/profile.html': 
                 reverse('posts:profile', kwargs={'username': 'TestUser'}),
-        }
+                }
         for template, reverse_name in template_pages.items():
             with self.subTest(reverse_name=reverse_name):
                 response = self.guest_client.get(reverse_name)
@@ -69,7 +69,7 @@ class PostPagesTest(TestCase):
         """
         template_pages = {
             'posts/create_post.html': reverse('posts:post_create'),
-        }
+            }
         for template, reverse_name in template_pages.items():
             with self.subTest(reverse_name=reverse_name):
                 response = self.authorized_client.get(reverse_name)
@@ -81,19 +81,19 @@ class PostPagesTest(TestCase):
         """
         template_pages = {'posts/create_post.html': 
                 reverse('posts:post_edit', kwargs={'post_id': '1'}),
-        }
+                }
         for template, reverse_name in template_pages.items():
             with self.subTest(reverse_name=reverse_name):
                 response = self.authorized_non_author.get(reverse_name)
                 self.assertTemplateNotUsed(response, template)
-                
+
     def test_create_show_correct_context(self):
         """Проверка контекста страницы создания поста"""
         response = self.authorized_client.get(reverse('posts:post_create'))
         form_field = {
             'text': forms.fields.CharField,
             'group': forms.fields.ChoiceField,
-        }
+            }
         for value, expected in form_field.items():
             with self.subTest(value=value):
                 form_field = response.context.get('form').fields.get(value)
@@ -106,7 +106,7 @@ class PostPagesTest(TestCase):
         form_field = {
             'text': forms.fields.CharField,
             'group': forms.fields.ChoiceField,
-        }
+            }
         for value, expected in form_field.items():
             with self.subTest(value=value):
                 form_field = response.context.get('form').fields.get(value)
@@ -150,7 +150,7 @@ class PostPagesTest(TestCase):
         """Проверка контекста страницы поста"""
         response = self.guest_client.get(
             reverse('posts:post_detail', kwargs={'post_id': self.post.pk})
-        )
+            )
         obj = response.context['post'].text
         self.assertEqual(obj, self.post.text)
 

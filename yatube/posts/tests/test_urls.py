@@ -12,19 +12,19 @@ class StaticURLTests(TestCase):
             title='Название тестовой группы',
             slug='test-slug',
             description='Описание тестовой группы',
-        )
+            )
         cls.main_user = User.objects.create(username='TestUser')
         cls.scnd_user = User.objects.create(username='ScndTestUser')
         cls.post = Post.objects.create(
             author=cls.main_user,
             pk='1',
             text='Тестовый текст',
-        )
+            )
         cls.scnd_user_post = Post.objects.create(
             author=cls.scnd_user,
             pk='2',
             text='Тестовый текст второго пользователя'
-        )
+            )
 
     def setUp(self):
         self.guest_client = Client()
@@ -40,7 +40,7 @@ class StaticURLTests(TestCase):
             '/group/test-slug/': 'Страница групп',
             '/profile/TestUser/': 'Посты пользователя',
             '/posts/1/': 'Страница поста',
-        }
+            }
         for url, url_names in url_list.items():
             with self.subTest(url_names=url_names):
                 response = self.guest_client.get(url)
@@ -61,7 +61,7 @@ class StaticURLTests(TestCase):
             '/posts/1/': 'Страница поста',
             '/create/': 'Создание поста',
             '/posts/1/edit/': 'Редактирования поста',
-        }
+            }
         for url, url_names in url_list.items():
             with self.subTest(url_names=url_names):
                 response = self.main_client.get(url)
@@ -86,7 +86,7 @@ class StaticURLTests(TestCase):
             'posts/post_detail.html': '/posts/1/',
             'posts/create_post.html': '/create/',
             'posts/profile.html': '/profile/TestUser/',
-        }
+            }
         for template, url in templates_urls.items():
             with self.subTest(url=url):
                 response = self.main_client.get(url)

@@ -15,11 +15,11 @@ class PostModelTest(TestCase):
             title='Название тестовой группы',
             slug='slug',
             description='Описание тестовой группы',
-        )
+            )
         cls.post = Post.objects.create(
             author=cls.user,
             text='Тестовый пост',
-        )
+            )
 
     def test_post_have_correct_object_name(self):
         """Проверка корректной работа __str__ Post"""
@@ -38,7 +38,7 @@ class PostModelTest(TestCase):
             'title': 'Название группы',
             'slug': 'Ссылка группы',
             'description': 'Описание группы'
-        }
+            }
         for field, expected_value in verboses_group.items():
             with self.subTest(field=field):
                 self.assertEqual(task_group._meta.get_field(
@@ -50,7 +50,7 @@ class PostModelTest(TestCase):
         verboses_post = {
             'author': 'Автор',
             'text': 'Текст поста',
-        }
+            }
         for field, expected_value in verboses_post.items():
             with self.subTest(field=field):
                 self.assertEqual(task_post._meta.get_field(
@@ -64,7 +64,7 @@ class PostModelTest(TestCase):
             'slug': ('Укажите адрес. Только '
                      'латиница, цифры, дефисы и знаки подчёркивания'),
             'description': 'Введите описание группы',
-        }
+            }
         for field, expected_value in group_help_texts.items():
             with self.subTest(field=field):
                 self.assertEqual(task_group._meta.get_field(
@@ -76,7 +76,7 @@ class PostModelTest(TestCase):
         post_help_texts = {
             'text': 'Введите текст поста',
             'group': 'Группа, к которой будет относиться пост',
-        }
+            }
         for field, expected_value in post_help_texts.items():
             with self.subTest(field=field):
                 self.assertEqual(task_post._meta.get_field(
