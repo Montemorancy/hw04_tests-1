@@ -13,11 +13,13 @@ class PostCreateFormTest(TestCase):
         cls.group = Group.objects.create(
             title='Тест группа',
             slug='test_slug',
-            description='Описание',)
+            description='Описание',
+        )
         cls.post = Post.objects.create(
             author=cls.user,
             text='Тестовый текст',
-            pk='1',)
+            group=cls.group,
+        )
         cls.form = PostForm()
 
     def setUp(self):
@@ -28,7 +30,8 @@ class PostCreateFormTest(TestCase):
         """Проверка формы создания поста."""
         post_count = Post.objects.count()
         form_data = {
-            'text': 'Тестовый текст',
+            'text': self.post.text,
+            'slug': self.group.slug,
         }
         response = self.authorized_user.post(
             reverse('posts:post_create'),
@@ -36,26 +39,17 @@ class PostCreateFormTest(TestCase):
             follow=True
         )
         self.assertRedirects(response, reverse(
-            'posts:profile', kwargs={'username': self.post.author}))
+            'posts:profile', args=(self.post.author, )))
         self.assertEqual(Post.objects.count(), post_count + 1)
         self.assertTrue(Post.objects.filter(
             author=self.post.author,
-            pk='1',
-            text='Тестовый текст'
+            text=self.post.text,
+            group=self.post.group,
         ).exists())
 
-    def test_edit_post_forms(self):
-        """Проверка формы редактирования поста."""
-        post_count = Post.objects.count()
-        form_data = {
-            'text': 'Тестовый пост',
-            'pk': '1'
-        }
-        response = self.authorized_user.post(
-            reverse('posts:post_edit', kwargs={'post_id': self.post.pk}),
-            data=form_data,
-            follow=True
-        )
-        self.assertEqual(Post.objects.count(), post_count)
-        self.assertRedirects(response, reverse(
-            'posts:post_detail', kwargs={'post_id': self.post.pk}))
+    def test_post_edit_form_show_correct_context(self):
+        """Шаблон post edit сформирован с правильным контекстом."""
+        response = self.authorized_user.get(
+            reverse('posts:post_edit', args={self.post.pk, }))
+        self.assertEqual(response.context['post'], self.post)
+        self.assertEqual(response.context['is_edit'], True)
